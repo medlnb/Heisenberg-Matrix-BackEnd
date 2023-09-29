@@ -26,7 +26,7 @@ const login = async (req, res) => {
 
 const signup = async (req, res) => {
 
-  const {expired} = req.body
+  const {email} = req.body
   try {
     const exists = await User.findOne({ email:req.body.email }) 
 
@@ -36,10 +36,14 @@ const signup = async (req, res) => {
     const user = await User.create(req.body)
 
     if (user) {
-      if(expired)
-        return res.status(201).json({ username: user.username, email, token: createToken(user._id, true) })
-      if(!expired)
-        return res.status(201).json({ username:user.username,email ,token:createToken(user._id,false)})
+      res.status(201).json(
+        {
+          username: user.username,
+          email,
+          token: createToken(user._id, false)
+        })
+      
+      return 
     }
     else
       res.status(501).json("Error signing up")

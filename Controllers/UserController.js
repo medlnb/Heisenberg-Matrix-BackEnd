@@ -18,9 +18,9 @@ const login = async (req, res) => {
   if (password !== user.password)
     return res.status(404).json("wrong password")
   if(expired)
-    res.status(201).json({ username: user.username, email, token: createToken(user._id, true) })
+    return res.status(201).json({ username: user.username, email, token: createToken(user._id, true) })
   if(!expired)
-    res.status(201).json({ username:user.username,email ,token:createToken(user._id,false)})
+    return res.status(201).json({ username:user.username,email ,token:createToken(user._id,false)})
 }
 
 
@@ -37,9 +37,9 @@ const signup = async (req, res) => {
 
     if (user) {
       if(expired)
-        res.status(201).json({ username: user.username, email, token: createToken(user._id, true) })
+        return res.status(201).json({ username: user.username, email, token: createToken(user._id, true) })
       if(!expired)
-        res.status(201).json({ username:user.username,email ,token:createToken(user._id,false)})
+        return res.status(201).json({ username:user.username,email ,token:createToken(user._id,false)})
     }
     else
       res.status(501).json("Error signing up")

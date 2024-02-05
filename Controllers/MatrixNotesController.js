@@ -41,7 +41,7 @@ const updateMatrixTask = async (req, res) => {
 
   const note = await MatrixNote.findOne({ _id: req.params.id });
   note.isDone = true;
-
+  note.increment();
   const updatedNote = await note.save();
 
   if (!updatedNote) return res.status(404).json({ error: "Note not found" });

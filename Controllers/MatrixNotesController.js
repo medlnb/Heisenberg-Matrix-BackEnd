@@ -40,12 +40,12 @@ const updateMatrixTask = async (req, res) => {
     return res.status(401).json({ error: "Wrong id form" });
 
   const note = await MatrixNote.findOne({ _id: req.params.id });
-  note.isDone = !note.isDone;
+  note.isDone = true;
 
-  const updatedNote = await MatrixNote.save();
+  const updatedNote = await note.save();
 
   if (!updatedNote) return res.status(404).json({ error: "Note not found" });
-  res.status(201).json(note);
+  res.status(201).json({msg: "Note updated successfully"});
 };
 module.exports = {
   getMatrixTask,
